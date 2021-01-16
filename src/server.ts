@@ -11,7 +11,13 @@ const bot = new TBot(token, { polling: true });
 
 let message = {};
 
-bot.addListener('text', function onPhotoText(msg) {
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    //const userID =
+    bot.sendMessage(chatId, 'Received your message');
+})
+
+bot.onText(/.*/, (msg) => {
     message = msg;
 });
 
