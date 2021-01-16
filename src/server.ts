@@ -11,13 +11,13 @@ const bot = new TBot(token, { polling: true });
 
 let message = {};
 
-bot.onText(/\/start/, (msg) => {
+bot.onText(/\/w*/, (msg) => {
     const chatId = msg.chat.id;
     const username = msg.from?.username;
     bot.sendMessage(chatId, `@${username}, я отказываюсь повиноваться вашим командам!`);
 })
 
-bot.on('message', (msg) => {
+bot.on('text', (msg) => {
     message = msg;
 });
 
