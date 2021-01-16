@@ -7,4 +7,4 @@ app.use("*",(req, res) =>{
     res.send("<h1>Welcome to your simple server! Awesome right</h1>");
 });
 
-app.listen(APP_PORT,() => console.log(`hosting @${APP_PORT}`));
+app.listen(APP_PORT,() => console.log(`hosting 11@${APP_PORT}`));
