@@ -11,7 +11,7 @@ const bot = new TBot(token, { polling: true });
 
 let message = {};
 
-bot.onText(/\/text/, function onPhotoText(msg) {
+bot.addListener('message', function onPhotoText(msg) {
     message = msg;
 });
 
