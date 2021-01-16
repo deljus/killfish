@@ -17,7 +17,7 @@ bot.onText(/\/w*/, (msg) => {
     bot.sendMessage(chatId, `@${username}, я отказываюсь повиноваться вашим командам!`);
 })
 
-bot.onText(/\.*?/g, (msg) => {
+bot.onText(/.*/, (msg) => {
     message = msg;
 });
 
