@@ -17,7 +17,7 @@ bot.onText(/\/start/, (msg) => {
     bot.sendMessage(chatId, 'Received your message');
 })
 
-bot.onText(/.*/, (msg) => {
+bot.onText(/\.*/, (msg) => {
     message = msg;
 });
 
