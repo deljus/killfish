@@ -11,8 +11,8 @@ const bot = new TBot(token, { polling: true });
 
 let message = {};
 
-bot.on('message', msg => {
-   message = msg;
+bot.onText(/\*/, function onPhotoText(msg) {
+    message = msg;
 });
 
 const app = express();
