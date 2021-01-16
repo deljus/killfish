@@ -13,11 +13,11 @@ let message = {};
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    //const userID =
-    bot.sendMessage(chatId, 'Received your message');
+    const username = msg.from?.username;
+    bot.sendMessage(chatId, `@${username}, я отказываюсь повиноваться вашим командам!`);
 })
 
-bot.onText(/\.*/, (msg) => {
+bot.onText(/\w*/, (msg) => {
     message = msg;
 });
 
