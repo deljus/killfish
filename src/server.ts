@@ -11,7 +11,9 @@ const bot = new TBot(token, { polling: true });
 
 let message = {};
 
-bot.onText(/\w*/, (msg) => {
+const r = new RegExp('\w*');
+
+bot.onText(r, (msg) => {
     const chatId = msg.chat.id;
     const username = msg.from?.username;
     bot.sendMessage(chatId, `@${username}, я отказываюсь повиноваться вашим командам!`);
