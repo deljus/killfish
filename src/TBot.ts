@@ -47,8 +47,8 @@ export default class TBot {
     this.botAPI.sendMessage(chat.id, descriptions.join('\n'));
   }
 
-  startGame = () => {
-
+  startGame = ({ chat }: TelegramBot.Message) => {
+    this.botAPI.sendGame(chat.id, 'gameName')
   };
 
 }
