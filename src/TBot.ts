@@ -15,6 +15,21 @@ export const MESSAGES = {
   }
 };
 
+const keyboard = [
+  [
+    {
+      text: 'Хочу кота', // текст на кнопке
+      callback_data: 'moreKeks' // данные для обработчика событий
+    }
+  ],
+  [
+    {
+      text: 'Хочу песика',
+      callback_data: 'morePes'
+    }
+  ]
+];
+
 export default class TBot {
   botAPI: TelegramBot
   constructor(token: string) {
@@ -48,7 +63,11 @@ export default class TBot {
   }
 
   startGame = ({ chat }: TelegramBot.Message) => {
-    this.botAPI.sendGame(chat.id, 'gameName')
+    this.botAPI.sendMessage(chat.id, 'Привет, Друг! чего хочешь?', { // прикрутим клаву
+      reply_markup: {
+        inline_keyboard: keyboard
+      }
+    });
   };
 
 }
