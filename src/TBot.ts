@@ -1,15 +1,28 @@
 import TelegramBot from 'node-telegram-bot-api';
 
 export const MESSAGES = {
-  HELLO: /\/hello bot/
+  HELLO: {
+    REG_EX: /\/hello/,
+    DESCRIPTION: '/hello - User greeting'
+  },
+  START: {
+    REG_EX: /\/start/,
+    DESCRIPTION: '/start - Start a training game'
+  },
+  HELP: {
+    REG_EX: /\/help/,
+    DESCRIPTION: '/help - Help information'
+  }
 };
 
 export default class TBot {
   botAPI: TelegramBot
-  constructor(botAPI: TelegramBot) {
-    this.botAPI = botAPI;
+  constructor(token: string) {
+    this.botAPI = new TelegramBot(token, { polling: true });
 
-    this.botAPI.onText(MESSAGES.HELLO, this.helloMessage)
+    this.botAPI.onText(MESSAGES.HELLO.REG_EX, this.helloMessage);
+    this.botAPI.onText(MESSAGES.HELP.REG_EX, this.helpMessage);
+    this.botAPI.onText(MESSAGES.START.REG_EX, this.startGame);
   }
 
   isGuz = (userName: string) => userName === 'kuzya_rk';
@@ -26,5 +39,16 @@ export default class TBot {
     } else {
       this.botAPI.sendMessage(chat.id, `Привет! @${username}.`);
     }
+  };
+
+  helpMessage = ({ chat }: TelegramBot.Message) => {
+    // @ts-ignore
+    const descriptions = Object.keys(MESSAGES).map(key => MESSAGES[key].DESCRIPTION)
+    this.botAPI.sendMessage(chat.id, descriptions.join('\n'));
   }
+
+  startGame = () => {
+
+  };
+
 }

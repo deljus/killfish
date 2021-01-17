@@ -7,8 +7,7 @@ if(!process.env.TOKEN) {
     process.exit();
 }
 
-const botAPI = new BotAPI(process.env.TOKEN, { polling: true });
-new TBot(botAPI);
+new TBot(process.env.TOKEN);
 
 const app = express();
 
