@@ -1,4 +1,5 @@
 import TelegramBot from 'node-telegram-bot-api';
+import GimnasticsTask from '../Gimnastics';
 import { MESSAGES, INLINE_KEYBOARD, INLINE_KEYBOARD_CALLBACKS } from './utils';
 
 export default class Index {
@@ -34,27 +35,38 @@ export default class Index {
   };
 
   onCallbackQuery = (query: TelegramBot.CallbackQuery) => {
+    const chatID = query.message?.chat.id;
+    const userName = query?.message?.from?.username;
+
+    if(!chatID || !userName) {
+      console.error('Unknown callback');
+      return;
+    }
+
     switch (query.data) {
       case INLINE_KEYBOARD_CALLBACKS.MEANING_OF_LIFE:
-        this.onMeaningOfLife(query);
+        this.onMeaningOfLife(chatID, userName);
         break;
       case INLINE_KEYBOARD_CALLBACKS.GYMNASTIC:
-        this.onGymnastic(query);
+        this.onGymnastic(chatID, userName);
         break;
       default:
-        console.error('Unknown callback')
+        console.error('Unknown callback');
     }
   };
 
-  onMeaningOfLife = ({ message }: TelegramBot.CallbackQuery) => {
-    if(message?.chat.id) {
-      this.botAPI.sendMessage(message?.chat.id, 'Смысла жизни нет!')
-    }
+  onMeaningOfLife = (chatID: number, userName: string) => {
+      this.botAPI.sendMessage(chatID, `@${userName}! Смысла жизни нет!`)
   };
 
-  onGymnastic = ({ message }: TelegramBot.CallbackQuery) => {
-    if(message?.chat.id) {
-      this.botAPI.sendMessage(message?.chat.id, 'Смысла жизни нет!')
+  onGymnastic = (chatID: number, userName: string) => {
+    if(GimnasticsTask.hasTask(userName)) {
+      this.botAPI.sendMessage(chatID, 'Смысла жизни нет!');
+      return;
     }
+
+    GimnasticsTask.createTask(userName);
+    const task = GimnasticsTask.getTask(userName);
+    this.botAPI.sendMessage(chatID, task.tasks.map((tesk, key) => `${key}). ${task}`).join('\n'));
   };
 }
