@@ -1,4 +1,3 @@
-import BotAPI from 'node-telegram-bot-api';
 import Index from './TBot';
 import express from 'express';
 
