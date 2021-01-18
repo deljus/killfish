@@ -61,12 +61,12 @@ export default class Index {
 
   onGymnastic = (chatID: number, userName: string) => {
     if(GimnasticsTask.hasTask(userName)) {
-      this.botAPI.sendMessage(chatID, 'Смысла жизни нет!');
+      this.botAPI.sendMessage(chatID, 'У вас уже есть задание на сегодня!');
       return;
     }
 
     GimnasticsTask.createTask(userName);
     const task = GimnasticsTask.getTask(userName);
-    this.botAPI.sendMessage(chatID, task.tasks.map((tesk, key) => `${key}). ${task}`).join('\n'));
+    this.botAPI.sendMessage(chatID, task.tasks.map((item, key) => `${key + 1}). ${item}`).join('\n'));
   };
 }
