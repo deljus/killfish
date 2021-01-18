@@ -1,6 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
 import GimnasticsTask from '../Gimnastics';
-import { MESSAGES, INLINE_KEYBOARD, INLINE_KEYBOARD_CALLBACKS } from './utils';
+import { MESSAGES, INLINE_KEYBOARD, INLINE_KEYBOARD_CALLBACKS, prepareTask } from './utils';
 
 export default class Index {
   botAPI: TelegramBot
@@ -60,13 +60,11 @@ export default class Index {
   };
 
   onGymnastic = (chatID: number, userName: string) => {
-    if(GimnasticsTask.hasTask(userName)) {
-      this.botAPI.sendMessage(chatID, `${userName}! У вас уже есть задание на сегодня!`);
-      return;
+    if(!GimnasticsTask.hasTask(userName)) {
+      GimnasticsTask.createTask(userName);
     }
 
-    GimnasticsTask.createTask(userName);
-    const task = GimnasticsTask.getTask(userName);
-    this.botAPI.sendMessage(chatID, task.tasks.map((item, key) => `${key + 1}). ${item}`).join('\n'));
+    const {tasks} = GimnasticsTask.getTask(userName);
+    this.botAPI.sendMessage(chatID, prepareTask(tasks, userName));
   };
 }

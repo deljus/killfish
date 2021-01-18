@@ -36,3 +36,8 @@ export const INLINE_KEYBOARD = {
         ]
     }
 }
+
+export const prepareTask = (tasks: string[], userName: string): string => {
+    const task = tasks.map((item, key) => `${key + 1}). ${item}`).join('\n');
+    return `@${userName}! Твое задание на сегодня: \n ${task}`
+};
