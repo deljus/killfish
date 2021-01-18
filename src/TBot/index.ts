@@ -36,7 +36,7 @@ export default class Index {
 
   onCallbackQuery = (query: TelegramBot.CallbackQuery) => {
     const chatID = query.message?.chat.id;
-    const userName = query?.message?.from?.username;
+    const userName = query?.from.username;
 
     if(!chatID || !userName) {
       console.error('Unknown callback');
