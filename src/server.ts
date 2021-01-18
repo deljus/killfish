@@ -1,5 +1,5 @@
 import BotAPI from 'node-telegram-bot-api';
-import TBot from './TBot';
+import Index from './TBot';
 import express from 'express';
 
 if(!process.env.TOKEN) {
@@ -7,7 +7,7 @@ if(!process.env.TOKEN) {
     process.exit();
 }
 
-new TBot(process.env.TOKEN);
+new Index(process.env.TOKEN);
 
 const app = express();
 
