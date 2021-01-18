@@ -61,7 +61,7 @@ export default class Index {
 
   onGymnastic = (chatID: number, userName: string) => {
     if(GimnasticsTask.hasTask(userName)) {
-      this.botAPI.sendMessage(chatID, 'У вас уже есть задание на сегодня!');
+      this.botAPI.sendMessage(chatID, `${userName}! У вас уже есть задание на сегодня!`);
       return;
     }
 
