@@ -1,6 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import GimnasticsTask from '../Gimnastics';
-import { MESSAGES, INLINE_KEYBOARD, INLINE_KEYBOARD_CALLBACKS, prepareTask } from './utils';
+import { forbiddenAnimeList } from '../ForbiddenAnimeList';
+import { MESSAGES, INLINE_KEYBOARD, INLINE_KEYBOARD_CALLBACKS, prepareTask, formattedListToString } from './utils';
 
 export default class Index {
   botAPI: TelegramBot
@@ -50,6 +51,9 @@ export default class Index {
       case INLINE_KEYBOARD_CALLBACKS.GYMNASTIC:
         this.onGymnastic(chatID, userName);
         break;
+      case INLINE_KEYBOARD_CALLBACKS.FORBIDDEN_ANIME:
+        this.onForbiddenAnimeList(chatID, userName);
+        break;
       default:
         console.error('Unknown callback');
     }
@@ -67,4 +71,8 @@ export default class Index {
     const {tasks} = GimnasticsTask.getTask(userName);
     this.botAPI.sendMessage(chatID, prepareTask(tasks, userName));
   };
+
+  onForbiddenAnimeList = (chatID: number, userName: string) => {
+    this.botAPI.sendPhoto(chatID, '/static/anime_photo.jpeg', { caption: formattedListToString(forbiddenAnimeList) });
+  }
 }

@@ -15,7 +15,8 @@ export const MESSAGES = {
 
 export const INLINE_KEYBOARD_CALLBACKS = {
     MEANING_OF_LIFE: 'onMeaningOfLife',
-    GYMNASTIC: 'onGymnastic'
+    GYMNASTIC: 'onGymnastic',
+    FORBIDDEN_ANIME: 'onForbiddenAnime'
 }
 
 export const INLINE_KEYBOARD = {
@@ -32,12 +33,24 @@ export const INLINE_KEYBOARD = {
                     text: 'Хочу потренероваться',
                     callback_data: INLINE_KEYBOARD_CALLBACKS.GYMNASTIC
                 }
+            ],
+            [
+                {
+                    text: 'Список запрещенных аниме',
+                    callback_data: INLINE_KEYBOARD_CALLBACKS.FORBIDDEN_ANIME
+
+                }
             ]
         ]
     }
 }
 
+export const formattedListToString =  (list: string[]): string => {
+    return list.map((item, key) => `${key + 1}. ${item}`).join('\n');
+};
+
 export const prepareTask = (tasks: string[], userName: string): string => {
-    const task = tasks.map((item, key) => `${key + 1}. ${item}`).join('\n');
+    const task = formattedListToString(tasks);
     return `@${userName}! Твое задание на сегодня: \n${task}`
 };
+
