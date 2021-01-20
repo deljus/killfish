@@ -10,5 +10,9 @@ new Index(process.env.TOKEN);
 
 const app = express();
 
+app.use("*",(_, res) =>{
+    res.send(__dirname);
+});
+
 app.use('/static', express.static(__dirname + '/static'));
 app.listen(process.env.PORT || 5000);
