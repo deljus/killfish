@@ -73,6 +73,6 @@ export default class Index {
   };
 
   onForbiddenAnimeList = (chatID: number, userName: string) => {
-    this.botAPI.sendPhoto(chatID, '/static/anime_photo.jpeg', { caption: formattedListToString(forbiddenAnimeList) });
+    this.botAPI.sendPhoto(chatID, '/public/anime_photo.jpeg', { caption: formattedListToString(forbiddenAnimeList) });
   }
 }

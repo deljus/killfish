@@ -14,5 +14,5 @@ app.use("*",(_, res) =>{
     res.send(__dirname);
 });
 
-app.use('/static', express.static(__dirname + '/static'));
+app.use('/static', express.static('public'));
 app.listen(process.env.PORT || 5000);
