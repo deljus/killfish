@@ -73,6 +73,9 @@ export default class Index {
   };
 
   onForbiddenAnimeList = (chatID: number, userName: string) => {
+    const hostName = process.env.APP_HOST_NAME;
+    if(hostName) {
       this.botAPI.sendPhoto(chatID, `/static/anime_photo.jpeg`, { caption: formattedListToString(forbiddenAnimeList) });
+    }
   }
 }
